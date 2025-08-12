@@ -65,17 +65,32 @@ void choise_amharic(){
     cin>>app_choise;
 }
 
+void choise_oromic(){
+    cout << " " <<endl;
+    cout << " " <<endl;
+    cout << "         Mee Bal'ina isaa armaan gadii ilaalaa " <<endl;
+    cout << " " <<endl;
+    cout << " 1. weliqunemti segelef tokko tuqa " <<endl;
+    cout << " 2. weliqunemti fekif lakofisa lama tuqa " <<endl;
+    cout << " 3.degerisav lakofisa 3 tuqa " <<endl;
+    cout << " 4.wae tejajila kenys bekuf lakofisa 4 tuqa" <<endl;
+    cout << " 5. mamiltota arigechuf lakofisa 5 tuqa " <<endl;
+    cout << " " <<endl;
+    cout << " Deebii keessan galchaa: " ;
+    cin>>app_choise;
+}
 
 void language(){
 
     int choise;
     cout << " "<<endl;
 
-          cout << " 1. for English please enter 1   "<<endl;
-          cout << " 2. ለአማርኛ እባክዎ 2 ን ያስገቡ       "<<endl;
-          cout << " 3.                              "<<endl;
-          cout << " 4.                              "<<endl;
-          cout << " 5.                              "<<endl;
+          cout << " 1. For English please enter 1              "<<endl;
+          cout << " 2. ለአማርኛ እባክዎ 2 ን ያስገቡ                  "<<endl;
+          cout << " 3. Afan oromof lakofisa 3 tuqa             "<<endl;
+          cout << " 4.                                         "<<endl;
+          cout << " 5.                                         "<<endl;
+          cout << " "<<endl;
           cout << " Enter your choise here: ";
           cin>>choise;
        if(choise == 1){
@@ -85,8 +100,7 @@ void language(){
         choise_amharic();
        }
        else if(choise == 3){
-        cout << " coming soon ";
-        cout << " "<<endl;
+        choise_oromic();
        }
        else if(choise == 4){
         cout << " coming soon ";
@@ -101,6 +115,7 @@ void language(){
         cout << " "<<endl;
        }
 }
+
 
 void app_choise_fun(){
     if(app_choise == 1){
