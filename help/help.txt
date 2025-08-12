@@ -1,0 +1,8 @@
+
+
+- this is yotor malling system(YMS)
+- please follow instraction and answer your choise from given choise 
+- fill port number and machin ip which is given from technical team
+- your choise should be should be same as user side
+- if any technical problem please report immediately as much as possible by choise contact buliders
+
