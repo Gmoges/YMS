@@ -1,36 +1,32 @@
 # audio for server side
 
-import socket
-import pyaudio
-import threading
+import socket       # to crete TCP connection
+import pyaudio      # to control audio input and output
+import threading    # To  send & receive at the same time without blocking
+
 
 # Audio settings
-CHUNK = 1024
+CHUNK = 1024      
 FORMAT = pyaudio.paInt16
 CHANNELS = 1
-RATE = 44100
+RATE = 44100   # in every second 44,100 or 44.1KHz audios are captured from the mic or sent to the speaker.
 
 
-logo = r"""
-                                                                      
-           _____      _____    ______  _______            ______  
-          |\    \    /    /|  |      \/       \       ___|\     \ 
-          | \    \  /    / | /          /\     \     |    |\     \
-          |  \____\/    /  //     /\   / /\     |    |    |/____/|
-           \ |    /    /  //     /\ \_/ / /    /| ___|    \|   | |
-            \|___/    /  /|     |  \|_|/ /    / ||    \    \___|/ 
-                /    /  / |     |       |    |  ||    |\     \    
-               /____/  /  |\____\       |____|  /|\ ___\|_____|   
-              |`    | /   | |    |      |    | / | |    |     |   
-              |_____|/     \|____|      |____|/   \|____|_____|   
-                 )/           \(          )/         \(    )/     
-                 '             '          '           '    '                     
+logo = """
+
+__  ____  _______               ___                 ____
+ \ \/ /  |/  / __/ ___ ___ _____/ (____    _______ _/ / /
+  \  / /|_/ _\ \  / _ `/ // / _  / / _ \  / __/ _ `/ / / 
+  /_/_/  /_/___/  \_,_/\_,_/\_,_/_/\___/  \__/\_,_/_/_/  
+                                                         
+
 """
+
+
 
 logo = "\033[34m" + logo + "\033[0m"
 
 print(logo)
-
 
 
 PORT = int(input("Enter port number: ")) 
