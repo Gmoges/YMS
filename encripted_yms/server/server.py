@@ -24,7 +24,7 @@ __  ____  _______               ___                 ____
 logo = "\033[34m" + logo + "\033[0m"
 print(logo)
 
-PORT = int(input("Enter port number: "))
+PORT = 2119
 
 # PyAudio
 audio = pyaudio.PyAudio()
