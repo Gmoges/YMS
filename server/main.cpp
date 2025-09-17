@@ -21,10 +21,10 @@ void loading(){
 
         cout << RED;
         cout << " "<<endl;
-        cout << " "<<endl;
-        cout << "                  __              ___                          " <<endl;
-        cout << "                  / / ___ ___ ____/ (____ ___ _                " <<endl;
-        cout << "                  / /_/ _ / _ `/ _  / / _ / _ `/ _ _ _ _       " <<endl;
+        cout << " "<<endl; 
+        cout << "                   __              ___                            " <<endl;
+        cout << "                  / / ___ ___ ____/ (____ ___ _                   " <<endl;
+        cout << "                  / /_/ _ / _ `/ _  / / _ / _ `/ _ _ _ _          " <<endl;
         cout << "                  /____\\__\\_,_/\\_,_/_/_//_\\_, / (_(_(_(_)     " <<endl;
         cout << "                                          /___/                " <<endl;
         cout << "                                                               " <<endl;
