@@ -7,7 +7,7 @@ CHUNK = 1024
 FORMAT = pyaudio.paInt16
 CHANNELS = 1
 RATE = 44100
-PORT = int(input("Enter port number: ")) 
+PORT = 2119
 # PyAudio
 audio = pyaudio.PyAudio()
 stream_in = audio.open(format=FORMAT, channels=CHANNELS, rate=RATE, input=True, frames_per_buffer=CHUNK)

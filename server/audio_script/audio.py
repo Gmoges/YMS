@@ -29,7 +29,7 @@ logo = "\033[34m" + logo + "\033[0m"
 print(logo)
 
 
-PORT = int(input("Enter port number: ")) 
+PORT = 2119
 # PyAudio
 audio = pyaudio.PyAudio()
 stream_in = audio.open(format=FORMAT, channels=CHANNELS, rate=RATE, input=True, frames_per_buffer=CHUNK)
@@ -39,9 +39,9 @@ stream_out = audio.open(format=FORMAT, channels=CHANNELS, rate=RATE, output=True
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 server.bind(("0.0.0.0", PORT))
 server.listen(1)
-print("🎧 Waiting for connection...")
+print(" Waiting for connection...")
 conn, addr = server.accept()
-print(f"✅ Connected by {addr}")
+print(f" Connected by {addr}")
 
 def send_audio():
     while True:
