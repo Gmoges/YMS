@@ -33,11 +33,11 @@ PORT_Opend = 2119  #Port number the server is runing
 
 #  PyAudio
 audieo = pyaudio.PyAudio()        # Initializes the audio system
-stream_in = audieo.open(format=SAMPLE, channels=CHANNEL, rate=RATE, input=True, frames_per_buffer=FRAMS)  
+get_data = audieo.open(format=SAMPLE, channels=CHANNEL, rate=RATE, input=True, frames_per_buffer=FRAMS)  
 
 # captures voice
 
-stream_out = audieo.open(format=SAMPLE, channels=CHANNEL, rate=RATE, output=True, frames_per_buffer=FRAMS)
+send_data = audieo.open(format=SAMPLE, channels=CHANNEL, rate=RATE, output=True, frames_per_buffer=FRAMS)
 # plays the user’s voice
 
 
@@ -54,7 +54,7 @@ print(f" Connected by {addressUser}")
 def sent_audio():
     while True:
         try:
-            data = stream_in.read(FRAMS, exception_on_overflow=False) # Continuously geting dta from user
+            data = get_data.read(FRAMS, exception_on_overflow=False) # Continuously geting dta from user
             ciphertext = YMS_enc.encrypt(data)   # Encrypt before sending
             connection.sendall(ciphertext) # Sends encrypted audio to server
         except:
@@ -67,7 +67,7 @@ def receive_audio():
             if not data:                            # connection closed
                 break
             plaintext = YMS_dec.decrypt(data)    # Decrypt before playing
-            stream_out.write(plaintext)             # Decrypts the audio
+            send_data.write(plaintext)             # Decrypts the audio
         except:
             break
 
@@ -82,6 +82,6 @@ trecive.join()
 # closed the connection
 
 connection.close()
-stream_in.close()
-stream_out.close()
+get_data.close()
+send_data.close()
 audieo.terminate()
