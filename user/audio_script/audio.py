@@ -1,72 +1,82 @@
-import socket
-import pyaudio
-import threading
 
-# Audio settings
-CHUNK = 1024
-FORMAT = pyaudio.paInt16
-CHANNELS = 1
-RATE = 44100
+#  librarys
 
+import socket           #  used for Network communication
+import pyaudio          #. record and play audio from the microphone and speakers
+import threading        #. multiple tasks at the same time
+from Crypto.Cipher import AES   # inport Advanced Encryption Standard(AES) to decript data
+
+#   symmetric key (must be same as user side code)
+key = b"This1sH4k3R1o9!!"    #. sed to encrypt/decrypt
+nonce = b"123456789012"      #. random-like number ensuring encryption uniqueness but it's fixed for now!
+YMS_enc = AES.new(key, AES.MODE_EAX, nonce=nonce)    #. encrypt outgoing audio
+YMS_dec = AES.new(key, AES.MODE_EAX, nonce=nonce)    #. decrypt incoming audio
+
+#  Audio settings
+FRAMS = 1024                       #. Number audio frames
+SAMPLE = pyaudio.paInt16           #. 16-bit per audio sample
+CHANNEL = 1
+RATE = 44100                       # CD quality
 # PyAudio
-audio = pyaudio.PyAudio()
-stream_in = audio.open(format=FORMAT, channels=CHANNELS, rate=RATE, input=True, frames_per_buffer=CHUNK)
-stream_out = audio.open(format=FORMAT, channels=CHANNELS, rate=RATE, output=True, frames_per_buffer=CHUNK)
+audio = pyaudio.PyAudio()        # Initializes the audio system
 
 
+get_audio = audio.open(format=SAMPLE, channels=CHANNEL, rate=RATE, input=True, frames_per_buffer=FRAMS) 
+
+send_audio = audio.open(format=SAMPLE, channels=CHANNEL, rate=RATE, output=True, frames_per_buffer=FRAMS)
 
 
 logo = """
-
 __  ____  _______               ___                 ____
  \ \/ /  |/  / __/ ___ ___ _____/ (____    _______ _/ / /
   \  / /|_/ _\ \  / _ `/ // / _  / / _ \  / __/ _ `/ / / 
   /_/_/  /_/___/  \_,_/\_,_/\_,_/_/\___/  \__/\_,_/_/_/  
-                                                         
-
 """
-
-
-
 logo = "\033[34m" + logo + "\033[0m"
-
 print(logo)
 
 
-# Connect to server
 IP = input("Enter server IP: ")
-PORT = int(input("Enter port: "))
-client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-client.connect((IP, PORT))
-print("📞 Connected to server")
+PORT = 2119
+User = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+User.connect((IP, PORT))
+print(" Connected to server")
 
 def send_audio():
     while True:
         try:
-            data = stream_in.read(CHUNK, exception_on_overflow=False)
-            client.sendall(data)
+            data = get_audio.read(FRAMS, exception_on_overflow=False)
+            ciphertext = YMS_enc.encrypt(data)
+            User.sendall(ciphertext)
         except:
             break
 
 def receive_audio():
     while True:
         try:
-            data = client.recv(CHUNK)
+            data = User.recv(2048)
             if not data:
                 break
-            stream_out.write(data)
+            plaintext = YMS_dec.decrypt(data)   
+            send_audio.write(plaintext)
         except:
             break
 
-t1 = threading.Thread(target=send_audio)
-t2 = threading.Thread(target=receive_audio)
-t1.start()
-t2.start()
+tsend = threading.Thread(target=send_audio)
+tresive = threading.Thread(target=receive_audio)
 
-t1.join()
-t2.join()
+# starting 
 
-client.close()
-stream_in.close()
-stream_out.close()
+tsend.start()
+tresive.start()
+
+# waiting to finsh before closed the program 
+tsend.join()
+tresive.join()
+
+# closed connection 
+
+User.close()
+get_audio.close()
+send_audio.close()
 audio.terminate()
